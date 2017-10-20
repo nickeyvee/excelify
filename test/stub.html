@@ -1,0 +1,611 @@
+<html>
+<style>
+   .red-highlight {
+      border: 1px solid #A94442;
+      background: #F2DEDE;
+   }
+
+   .red {
+      color: red;
+   }
+
+   .warning-dialog {
+      color: red;
+      margin: 5px 0 5px 0;
+   }
+
+   .margin-cond {
+      margin-bottom: 20px;
+   }
+
+   .disabled {
+      pointer-events: none;
+   }
+
+   select {
+      margin-bottom: 10px;
+   }
+
+   .m-signature-pad {
+      margin-top: 0 !important;
+   }
+
+   .signature-content-wrapper {
+      margin-top: 50px;
+   }
+
+   canvas {
+      max-width: 303px;
+      margin-top: 23px;
+   }
+</style>
+
+
+<form class="form" id="live_form" action="" enctype="multipart/form-data">
+
+
+   <step1>
+      <section id="business_info">
+         <div class="row">
+            <h3>Business Information</h3>
+            <hr/>
+            <div class="col-md-6">
+               <input name="company_name" id="company_name" type="text" value="" class="form-control form-required-input" placeholder="Legal Company Name"
+                  required>
+               <div class="warning-dialog" id="warning_company_name" style="display:none;">Please specify company name</div>
+            </div>
+            <div class="col-md-6">
+               <input name="dba" id="dba" type="text" value="" class="form-control" placeholder="Doing Business As (DBA)"></div>
+         </div>
+         <div class="row">
+            <div class="col-md-6">
+               <select name="federal_tax_structure" id="federal_tax_structure" class="form-control form-required-input">
+   <option value="" selected="">Federal Tax Structure</option>
+   <option value="Individual/Sole Proprietor" [[!+fi.federal_tax_structure:FormItIsSelected=`Individual/Sole Proprietor`]]>Individual/Sole Proprietor</option>
+   <option value="C Corporation" [[!+fi.federal_tax_structure:FormItIsSelected=`C Corporation`]]>C Corporation</option>
+   <option value="S Corporation" [[!+fi.federal_tax_structure:FormItIsSelected=`S Corporation`]]>S Corporation</option>
+   <option value="Partnership" [[!+fi.federal_tax_structure:FormItIsSelected=`Partnership`]]>Partnership</option>
+   <option value="Limited Liability Company (LLC)" [[!+fi.federal_tax_structure:FormItIsSelected=`Limited Liability Company (LLC)`]]>Limited Liability Company (LLC)</option>
+   </select><i class="fa fa-caret-down selectDropdown" aria-hidden="true"></i>
+               <div class="warning-dialog" id="warning_federal_tax_structure" style="display:none;">Please specify company type</div>
+            </div>
+            <div class="col-md-6">
+               <input name="ein" id="ein" type="text" value="" class="form-control form-required-input" placeholder="Federal Tax ID Number"
+                  maxlength="9" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode === 8'>
+               <div class="warning-dialog" id="warning_ein" style="display:none;">Invalid Tax id number</div>
+            </div>
+         </div>
+      </section>
+      <section id="contact">
+         <div class="row">
+            <h3>Business Contact Information</h3>
+            <hr/>
+
+            <div class="row">
+               <div class="col-md-12">
+                  <h5>Primary Contact</h5>
+               </div>
+            </div>
+
+            <div class="row">
+               <div class="col-md-6 col-sm-6 col-xs-12 no-r-p">
+                  <input class="form-control form-required-input" type="text" name="primary_contact_fname" id="primary_contact_fname" placeholder="First Name"
+                     value="[[!+fi.primary_contact_fname]]">
+                  <div class="warning-dialog" id="warning_primary_contact_fname" style="display:none;" autocomplete="fname"></div>
+               </div>
+               <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input class="form-control form-required-input" type="text" name="primary_contact_lname" id="primary_contact_lname" placeholder="Last Name"
+                     value="[[!+fi.primary_contact_lname]]">
+                  <div class="warning-dialog" id="warning_primary_contact_lname" style="display:none;" autocomplete="lname"></div>
+               </div>
+            </div>
+
+            <div class="row">
+               <div class="col-md-6 col-sm-6 col-xs-12 no-r-p">
+                  <input class="form-control form-required-input" type="email" name="primary_contact_email" id="primary_contact_email" placeholder="Email"
+                     value="[[!+fi.primary_contact_email]]" required>
+                  <div class="warning-dialog" id="warning_primary_contact_email" style="display:none;" autocomplete="email"></div>
+               </div>
+               <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input class="form-control form-required-input" maxlength="16" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode === 8'
+                     type="tel" data-bind="value: mask" name="primary_contact_phone" id="primary_contact_phone" placeholder="Phone"
+                     value="[[!+fi.primary_contact_phone]]">
+                  <div class="warning-dialog" id="warning_primary_contact_phone" style="display:none;" autocomplete="tel"></div>
+               </div>
+            </div>
+
+            <div class="row">
+               <div class="col-md-12">
+                  <h5>Secondary Contact</h5>
+               </div>
+               <div class="col-md-6 col-sm-6 col-xs-12 no-r-p">
+                  <input class="form-control" type="text" name="secondary_contact_fname" placeholder="First Name" value="[[!+fi.secondary_contact_fname]]">
+               </div>
+               <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input class="form-control" type="text" name="secondary_contact_lname" placeholder="Last Name" value="[[!+fi.secondary_contact_lname]]">
+               </div>
+               <div class="col-md-6 col-sm-6 col-xs-12 no-r-p">
+                  <input class="form-control" type="email" name="secondary_contact_email" placeholder="Email" value="[[!+fi.secondary_contact_email]]"
+                     required>
+               </div>
+               <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input class="form-control" type="text" name="secondary_contact_phone" placeholder="Phone" value="[[!+fi.secondary_contact_phone]]"
+                     id="secondary_contact_phone" maxlength="16" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode === 8'>
+                  <div class="warning-dialog" id="warning_secondary_contact_phone" style="display:none;"></div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-4">
+                  <label for="business_email">Business Email</label>
+                  <input name="business_email" id="business_email" type="email" value="" class="form-control form-required-input" placeholder="Business Email"
+                     required>
+                  <div class="warning-dialog" id="warning_business_email" style="display:none;"></div>
+               </div>
+               <div class="col-md-4">
+                  <label for="business_phone">Business Phone</label>
+                  <input name="business_phone" id="business_phone" type="tel" value="" class="form-control form-required-input" placeholder="Business Phone"
+                     maxlength="16" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode === 8'>
+                  <div class="warning-dialog" id="warning_business_phone" style="display:none;"></div>
+               </div>
+               <div class="col-md-4">
+                  <label for="business_phone_ext">Extension</label>
+                  <input name="business_phone_ext" id="business_phone_ext" type="tel" value="" class="form-control" placeholder="Extension">
+                  <div class="warning-dialog" id="warning_business_phone_ext" style="display:none;"></div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-4">
+                  <label for="business_phone_mobile">Mobile Phone</label>
+                  <input name="business_phone_mobile" id="business_phone_mobile" type="tel" value="" class="form-control form-required-input"
+                     placeholder="Mobile Phone" maxlength="16" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode === 8'>
+                  <div class="warning-dialog" id="warning_business_phone_mobile" style="display:none;"></div>
+               </div>
+               <div class="col-md-4">
+                  <label for="business_home_emergency">Emergency Phone</label>
+                  <input name="business_phone_emergency" id="business_phone_emergency" type="tel" value="" class="form-control form-required-input"
+                     placeholder="Emergency Phone" maxlength="16" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode === 8'>
+                  <div class="warning-dialog" id="warning_business_phone_emergency" style="display:none;"></div>
+               </div>
+               <div class="col-md-4">
+                  <label for="business_phone_emergency">Business Fax</label>
+                  <input name="business_phone_fax" id="business_phone_fax" type="tel" value="" class="form-control" placeholder="Business Fax"
+                     maxlength="16" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode === 8'>
+                  <div class="warning-dialog" id="warning_business_phone_fax" style="display:none;"></div>
+                  </label>
+               </div>
+            </div>
+      </section>
+      <section id="location">
+         <div class="row">
+            <h3>Business Location</h3>
+            <hr/>
+            <div class="col-md-6">
+               <input name="business_address" id="business_address" type="text" value="" class="form-control form-required-input" placeholder="Business Address">
+               <div class="warning-dialog" id="warning_business_address" style="display:none;"></div>
+            </div>
+            <div class="col-md-6">
+               <input name="business_address2" id="business_address2" type="text" value="" class="form-control" placeholder="Suite, Unit, Floor, etc...">
+               <div class="warning-dialog" id="warning_business_address2" style="display:none;"></div>
+            </div>
+         </div>
+         <div class="row" id="business-location-addr">
+            <div class="col-md-4">
+               <input name="business_zip" id="business_zip" type="text" value="" class="form-control form-required-input" placeholder="Zip Code">
+               <div class="warning-dialog" id="warning_business_zip" style="display:none;"></div>
+               <div class="text-error"></div>
+            </div>
+            <div class="col-md-4">
+               <input name="business_city" id="business_city" type="text" value="" class="form-control form-required-input" placeholder="City">
+               <div class="warning-dialog" id="warning_business_city" style="display:none;"></div>
+            </div>
+            <div class="col-md-4">
+               <select name="business_state" class="form-control form-required-input" placeholder="State" id="business_state">[[!FormItStateOptions? &selected=`[[!+fi.state]]` &useAbbr=`0`]]</select>
+               <i class="fa fa-caret-down selectDropdown" aria-hidden="true"></i>
+               <div class="warning-dialog" id="warning_business_state" style="display:none;"></div>
+            </div>
+         </div>
+
+         <div class="col-md-12">
+            <h4>Remittance Address</h4>
+            <span>Where do we mail the check to? If the same address, select same address below.</span>
+            <ul class="unstyled" id="remittance_address_status">
+               <li>
+                  <input id="same_address" type="radio" name="remittance_address" value="Same Address" [[!+fi.remittance_address:FormItIsSelected:`Same
+                     Address`]]>
+                  <label for="Same Address">Same Address</label>
+               </li>
+               <li>
+                  <input id="different_address" type="radio" name="remittance_address" value="different_address" [[!+fi.remittance_address:FormItIsSelected:`different_address`]]>
+                  <label for="different_address">Different Address</label>
+               </li>
+            </ul>
+            <div class="warning-dialog" id="warning_remittance_address_status" style="display:none;">Please choose an option</div>
+         </div>
+
+         <!-- NOTICE: The div element with: 'id="different_address_truthy_input"' used to be called: 'id="different_address"'.
+   The name was changed because a duplicate id attribute already exists -->
+         <div class="form-group hidden">
+            <div id="different_address_truthy_input" name="different_address">
+               <div class="col-md-12">
+                  <div class="row"><input name="remittance_company_name" id="remittance_company_name" type="text" value="" class="form-control remittance_address_required"
+                        placeholder="Full Company Name" required></div>
+                  <div class="warning-dialog" id="warning_remittance_company_name" style="display:none;"></div>
+               </div>
+               <div class="row">
+                  <div class="col-md-4">
+                     <input name="remittance_address" id="remittance_address" type="text" value="" class="form-control remittance_address_required"
+                        placeholder="Street Address">
+                     <div class="warning-dialog" id="warning_remittance_address" style="display:none;"></div>
+                  </div>
+                  <div class="col-md-4">
+                     <input name="remittance_address2" id="remittance_address2" type="text" value="" class="form-control" placeholder="Suite, Unit, Floor, etc...">
+                  </div>
+                  <div class="col-md-4">
+                     <input name="remittance_city" id="remittance_city" type="text" value="" class="form-control remittance_address_required"
+                        placeholder="City">
+                     <div class="warning-dialog" id="warning_remittance_city" style="display:none;"></div>
+                  </div>
+               </div>
+
+               <div class="row" id="remittance-location-addr">
+                  <div class="col-md-4">
+                     <input name="remittance_zip" id="remittance_zip" type="text" value="" class="form-control remittance_address_required" placeholder="Zip Code">
+                     <div class="warning-dialog" id="warning_remittance_zip" style="display:none;"></div>
+                  </div>
+                  <div class="col-md-4">
+                     <input name="remittance_state" class="form-control remittance_address_required" type="text" value="" placeholder="State / Province / Region"
+                        id="remittance_state">
+                     <div class="warning-dialog" id="warning_remittance_state" style="display:none;"></div>
+                  </div>
+                  <div class="col-md-4">
+                     <select name="remittance_country" class="form-control remittance_address_required" placeholder="Country" id="remittance_country">[[!FormItCountryOptions? &selected=`[[!+fi.remittance_country]]`]]</select>
+                     <i class="fa fa-caret-down selectDropdown" aria-hidden="true"></i>
+                     <div id="warning_remittance_country" style="display:none;"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <div class="row">
+            <div class="col-md-2 col-md-offset-10"><a href="#business_info" class="btn btn-footer-custom nextBtn pull-right" id="next_button_step1" type="button">Next</a></div>
+         </div>
+      </section>
+   </step1>
+   <step2>
+      <section id="service_info">
+         <h3>Service Information</h3>
+         <hr/>
+
+         <div class="row">
+            <div class="col-md-12">
+               <h5>Service Contact</h5>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12 no-r-p">
+               <input class="form-control form-required-input" type="text" name="service_contact_fname" id="service_contact_fname" placeholder="First Name"
+                  value="[[!+fi.service_contact_fname]]">
+               <div class="warning-dialog" id="warning_service_contact_fname" style="display:none;"></div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+               <input class="form-control form-required-input" type="text" name="service_contact_lname" id="service_contact_lname" placeholder="Last Name"
+                  value="[[!+fi.service_contact_lname]]">
+               <div class="warning-dialog" id="warning_service_contact_lname" style="display:none;"></div>
+            </div>
+         </div>
+
+         <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12 no-r-p">
+               <input class="form-control form-required-input" type="email" name="service_contact_email" id="service_contact_email" placeholder="Email"
+                  value="[[!+fi.service_contact_email]]" required>
+               <div class="warning-dialog" id="warning_service_contact_email" style="display:none;"></div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+               <input class="form-control form-required-input" type="text" name="service_contact_phone" id="service_contact_phone" placeholder="Phone"
+                  value="[[!+fi.service_contact_phone]]" id="service_contact_phone" maxlength="16" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode === 8'>
+               <div class="warning-dialog" id="warning_service_contact_phone" style="display:none;"></div>
+            </div>
+         </div>
+
+         <div class="row" style="margin-top:10px">
+            <div class="col-md-5 col-sm-6 col-xs-12 no-r-p">
+               <h5>Business Operation</h5>
+               <input class="form-control" type="text" name="week" id="days_a_week" placeholder="Days A Week" value="[[!+fi.week]]">
+               <div class="warning-dialog" id="warning_days_a_week" style="display:none;"></div>
+            </div>
+            <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12">
+               <h5>Operation Hours</h5>
+               <div class="row">
+                  <div class="col-md-5 no-r-p col-sm-5 col-xs-5">
+                     <input class="form-control" type="time" id="operating_time_am" name="open" placeholder="A.M" value="[[!+fi.open]]">
+                     <div class="warning-dialog" id="warning_operating_time_am" style="display:none;"></div>
+                  </div>
+                  <div class="col-md-2 no-r-p col-sm-2 col-xs-2">
+                     <h5>To</h5>
+                  </div>
+                  <div class="col-md-5 no-r-p col-sm-5 col-xs-5">
+                     <input class="form-control" type="time" id="operating_time_pm" name="close" placeholder="P.M" value="[[!+fi.close]]">
+                     <div class="warning-dialog" id="warning_operating_time_pm" style="display:none;"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <label style="margin-top:5px">Do you offer emergency after hours service?</label><br/>
+         <ul class="unstyled" id="emergency_after_hours_service_question">
+            <li>
+               <input id="yes" type="radio" name="emergency[]" value="Yes" [[!+fi.emergency:FormItIsSelected:`Yes`]]>
+               <label for="yes">Yes</label>
+            </li>
+            <li>
+               <input id="no" type="radio" name="emergency[]" value="No" [[!+fi.emergency:FormItIsSelected:`No`]]>
+               <label for="no">No</label>
+            </li>
+         </ul>
+         <div class="warning-dialog" id="warning_emergency_after_hours_service_question" style="display:none;">Please choose an option</div>
+      </section>
+      <section id="service provided">
+         <h3>Services Offered</h3>
+         <hr/>
+         <span>Select all that apply.</span>
+         <div class="row">
+            <div class="warning-dialog" id="warning_services_offered" style="display:none; margin-left:15px">Please select at least one</div>
+         </div>
+         <ul class="unstyled" style="column-count:3;" id="services_offered">
+            <li>
+               <input id="Appliance Repair" type="checkbox" name="service_offered[]" value="Appliance Repair" [[!+fi.service_offered:FormItIsSelected:`Appliance
+                  Repair`]]>
+               <label for="Appliance Repair">Appliance Repair</label>
+            </li>
+            <li>
+               <input id="Cleaning-Carpet and Tiles" type="checkbox" name="service_offered[]" value="Cleaning-Carpet and Tiles" [[!+fi.service_offered:FormItIsSelected:`Cleaning-Carpet
+                  and Tiles`]]>
+               <label for="Cleaning-Carpet and Tiles">Cleaning-Carpet and Tiles</label>
+            </li>
+            <li>
+               <input id="Cleaning-Janitorial" type="checkbox" name="service_offered[]" value="Cleaning-Janitorial" [[!+fi.service_offered:FormItIsSelected:`Cleaning-Janitorial`]]>
+               <label for="Cleaning-Janitorial">Cleaning-Janitorial</label>
+            </li>
+            <li>
+               <input id="Concrete Repairs" type="checkbox" name="service_offered[]" value="Concrete Repairs" [[!+fi.service_offered:FormItIsSelected:`Concrete
+                  Repairs`]]>
+               <label for="Concrete Repairs">Concrete Repairs</label>
+            </li>
+            <li>
+               <input id="Doors-Automatic" type="checkbox" name="service_offered[]" value="Doors-Automatic" [[!+fi.service_offered:FormItIsSelected:`Doors-Automatic`]]>
+               <label for="Doors-Automatic">Doors-Automatic</label>
+            </li>
+            <li>
+               <input id="Doors-General" type="checkbox" name="service_offered[]" value="Doors-General" [[!+fi.service_offered:FormItIsSelected:`Doors-General`]]>
+               <label for="Doors-General">Doors-General</label>
+            </li>
+            <li>
+               <input id="Doors-Overhead - Gates" type="checkbox" name="service_offered[]" value="Doors-Overhead - Gates" [[!+fi.service_offered:FormItIsSelected:`Doors-Overhead
+                  - Gates`]]>
+               <label for="Doors-Overhead - Gates">Doors-Overhead - Gates</label>
+            </li>
+            <li>
+               <input id="Electrical - Data/AV" type="checkbox" name="service_offered[]" value="Electrical - Data/AV" [[!+fi.service_offered:FormItIsSelected:`Electrical
+                  - Data/AV`]]>
+               <label for="Electrical - Data/AV">Electrical - Data/AV</label>
+            </li>
+            <li>
+               <input id="Electrical - High Voltage" type="checkbox" name="service_offered[]" value="Electrical - High Voltage" [[!+fi.service_offered:FormItIsSelected:`Electrical
+                  - High Voltage`]]>
+               <label for="Electrical - High Voltage">Electrical - High Voltage</label>
+            </li>
+            <li>
+               <input id="Exterior Services - Landscaping" type="checkbox" name="service_offered[]" value="Exterior Services - Landscaping"
+                  [[!+fi.service_offered:FormItIsSelected:`Exterior Services - Landscaping`]]>
+               <label for="Exterior Services - Landscaping">Exterior Services - Landscaping</label>
+            </li>
+            <li>
+               <input id="Exterior Services - Snow Removal" type="checkbox" name="service_offered[]" value="Exterior Services - Snow Removal"
+                  [[!+fi.service_offered:FormItIsSelected:`Exterior Services - Snow Removal`]]>
+               <label for="Exterior Services - Snow Removal">Exterior Services - Snow Removal</label>
+            </li>
+            <li>
+               <input id="Exterior Services - Street Sweeping" type="checkbox" name="service_offered[]" value="Exterior Services - Street Sweeping"
+                  [[!+fi.service_offered:FormItIsSelected:`Exterior Services - Street Sweeping`]]>
+               <label for="Exterior Services - Street Sweeping">Exterior Services - Street Sweeping</label>
+            </li>
+            <li>
+               <input id="Exterior Services - Tree Service" type="checkbox" name="service_offered[]" value="Exterior Services - Tree Service"
+                  [[!+fi.service_offered:FormItIsSelected:`Exterior Services - Tree Service`]]>
+               <label for="Exterior Services - Tree Service">Exterior Services - Tree Service</label>
+            </li>
+            <li>
+               <input id="Exterior Services - Snow Removal" type="checkbox" name="service_offered[]" value="Exterior Services - Snow Removal"
+                  [[!+fi.service_offered:FormItIsSelected:`Exterior Services - Snow Removal`]]>
+               <label for="Exterior Services - Snow Removal">Exterior Services - Snow Removal</label>
+            </li>
+            <li>
+               <input id="Exterior Services - Street Sweeping" type="checkbox" name="service_offered[]" value="Exterior Services - Street Sweeping"
+                  [[!+fi.service_offered:FormItIsSelected:`Exterior Services - Street Sweeping`]]>
+               <label for="Exterior Services - Street Sweeping">Exterior Services - Street Sweeping</label>
+            </li>
+         </ul>
+         <div class="row">
+            <div class="col-md-2 col-md-offset-8">
+               <button class="btn btn-footer-custom nextBtn pull-right" type="button">Previous</button></div>
+            <div class="col-md-2 ">
+               <a href="#service_info" class="btn btn-footer-custom nextBtn pull-right" type="button" id="next_button_step2">Next</a></div>
+         </div>
+      </section>
+   </step2>
+   <step3>
+      <section id="service_continue">
+         <h3>Services Offered: <em>continued</em></h3>
+         <hr/>
+         <span>Please describe pricing information for the services you offer.</span>
+
+         <div class="" id="output_container"></div>
+
+         <!--<div class="row">-->
+         <!--<div class="col-md-12">-->
+         <!--<h4>Plumbing</h4>-->
+         <!--</div>-->
+         <!--<div class="col-md-4 col-sm-4 col-xs-12 no-r-p">-->
+         <!--<label for="plumbing_service_labor-rate">Labor Rate</label>-->
+         <!--<input class="form-control" type="text" name="plumbing_service_labor-rate" placeholder="$" value="[[!+fi.service_contact_plumbing_service_labor-rate]]">-->
+         <!--</div>-->
+         <!--<div class="col-md-4 col-sm-4 col-xs-12">-->
+         <!--<label for="plumbing_service_travel-rate">Travel/Trip Charge (if applicable )</label>-->
+         <!--<input class="form-control" type="text" name="plumbing_service_travel-rate" placeholder="$" value="[[!+fi.plumbing_service_travel-rate]]">-->
+         <!--</div>-->
+         <!--<div class="col-md-4 col-sm-4 col-xs-12 no-r-p">-->
+         <!--<label for="plumbing_service_emergency_labor-rate">Emergency Service Labor Rate</label>-->
+         <!--<input class="form-control" type="text" name="plumbing_service_emergency_labor-rate" placeholder="$" value="[[!+fi.plumbing_service_emergency_labor-rate]]" required>-->
+         <!--</div>-->
+
+         <!--<div class="row"><div class="col-md-12 col-sm-12 col-xs-12">-->
+         <!--<label for="plumbing_service_comments">Additional Comments</label>-->
+         <!--<textarea rows="8" name="service_contact_phone" class="form-control"  value="[[!+fi.service_contact_phone]]"></textarea>-->
+         <!--</div></div>-->
+         <!--</div>-->
+
+
+
+         <div class="row">
+            <div class="col-md-2 col-md-offset-8">
+               <button class="btn btn-footer-custom nextBtn pull-right" type="button">Previous</button>
+            </div>
+            <div class="col-md-2 ">
+               <a href="#service_continue" class="btn btn-footer-custom nextBtn pull-right" id="next_button_step3" type="button">Next</a>
+            </div>
+         </div>
+
+      </section>
+   </step3>
+   <step4>
+      <section id="insurance">
+         <h3>Proof of Insurance</h3>
+         <span>Please confirm you can provide the following proof of insurance.</span>
+         <hr/>
+
+         <div class="row">
+            <div class="col-md-6">
+               <div class="form-required-radio" id="general_liablity">
+                  <label style="margin-top:5px">General Liability listing 23rd Group, LLC as additionally insured.</label><br/>
+                  <ul class="unstyled form-required-radio">
+                     <li>
+                        <input id="yes" type="radio" name="general_liability[]" value="Yes" [[!+fi.general_liability:FormItIsSelected:`Yes`]]>
+                        <label for="yes">Yes</label>
+                     </li>
+                     <li>
+                        <input id="no" type="radio" name="general_liability[]" value="No" [[!+fi.general_liability:FormItIsSelected:`No`]]>
+                        <label for="no">No</label>
+                     </li>
+                  </ul>
+                  <div class="warning-dialog" id="warning_general_liablity" style="display:none;">Please select an option</div>
+               </div>
+            </div>
+            <div class="col-md-6">
+               <div class="form-required-radio" id="auto_policy">
+                  <label style="margin-top:5px">Auto Policy</label><br/>
+                  <ul class="unstyled">
+                     <li>
+                        <input id="yes" type="radio" name="general_liability2[]" value="Yes" [[!+fi.general_liability:FormItIsSelected:`Yes`]]>
+                        <label for="yes">Yes</label>
+                     </li>
+                     <li>
+                        <input id="no" type="radio" name="general_liability2[]" value="No" [[!+fi.general_liability:FormItIsSelected:`No`]]>
+                        <label for="no">No</label>
+                     </li>
+                  </ul>
+                  <div class="warning-dialog" id="warning_auto_policy" style="display:none;">Please select an option</div>
+               </div>
+            </div>
+         </div>
+
+         <div class="row">
+            <div class="col-md-6">
+               <div class="form-required-radio" id="has_workmans_comp">
+                  <label style="margin-top:5px">Does your company have Workman's Comp Insurance Policy?</label><br/>
+                  <ul class="unstyled">
+                     <li>
+                        <input id="yes" type="radio" name="general_liability3[]" value="Yes" [[!+fi.general_liability:FormItIsSelected:`Yes`]]>
+                        <label for="yes">Yes</label>
+                     </li>
+                     <li>
+                        <input id="no" type="radio" name="general_liability3[]" value="No" [[!+fi.general_liability:FormItIsSelected:`No`]]>
+                        <label for="no">No</label>
+                     </li>
+                  </ul>
+                  <div class="warning-dialog" id="warning_has_workmans_comp" style="display:none;">Please select an option</div>
+               </div>
+            </div>
+            <div class="col-md-6">
+               <div class="form-required-radio" id="state_certified_exempt" style="display:none">
+                  <label style="margin-top:5px">State Certified Exempt Form</label><br/>
+                  <span>We recognize that each state has different rules concerning Workman's Comp Insurance. If your state does not require you to have WC Insurance, we require a state certified exempt form. Can you provide a state certified exempt form?</span>
+                  <ul class="unstyled">
+                     <li>
+                        <input id="yes" type="radio" name="general_liability4[]" value="Yes" [[!+fi.general_liability:FormItIsSelected:`Yes`]]>
+                        <label for="yes">Yes</label>
+                     </li>
+                     <li>
+                        <input id="no" type="radio" name="general_liability4[]" value="No" [[!+fi.general_liability:FormItIsSelected:`No`]]>
+                        <label for="no">No</label>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <span id="warning_state_certified_exempt" style="display:none; color:red">*** IMPORTANT *** 
+   In order to become a service provider for 23rd Group, applicants are required to either have Workman's Comp insurance or have a State Certified Exempt Form. You indicated that you have no Workman's Comp insurance and are not exempt from your State. We are unable to process your application at this time.</span>
+         </div>
+      </section>
+      <script src="assets/js/drop_uploader.js"></script>
+      <link rel="stylesheet" href="assets/pe-icon-7-stroke/css/pe-icon-7-stroke.css">
+      <link rel="stylesheet" href="assets/css/drop_uploader.css">
+      <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.1/dist/signature_pad.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+      <section id="file upload">
+         <hr/>
+         <div class="row">
+            <h4>Upload Poof Of Insurance</h4>
+            <span>To expedite your registration, please upload your COI demonstrating your insurance coverage.</span>
+            <input type="file" name="" multiple="" data-method="ajax" id="1jcjLrgr11SOvIB">
+
+            <span>Accepted file types: jpg, jpeg, png, pdf.</span>
+            <br/><br/>
+            <span>Please download a <a href="[[++sample_COI]]" target="_blank">sample COI</a> which can be forwarded to your insurance agent.
+   PLEASE NOTE: The certificate must list 23rd Group, LLC. as additionally insured. Under the Certificate Holder section of the COI, enter the following information: 
+   23rd Group, LLC. 4944 Parkway Plaza Boulevard, Suite 400 Charlotte, NC 28217</span>
+         </div>
+         <div class="row">
+            <div class="col-md-2 col-md-offset-8">
+               <button class="btn btn-footer-custom nextBtn pull-right" type="button">Previous</button></div>
+            <div class="col-md-2 ">
+               <a href="#insurance" class="btn btn-footer-custom nextBtn pull-right" type="button" id="next_button_step4">Next</a>
+            </div>
+         </div>
+      </section>
+   </step4>
+   <step5 id="legal">
+      <h3>Contract and Agreement</h3>
+      <span>Please confirm you can provide the following proof of insurance.</span>
+      <hr/> [[*content]]
+      <div class="row signature-content-wrapper">
+         <div class="col-md-6 col-sm-6 col-xs-6">
+            <div id="signature-pad" class="m-signature-pad">
+               <div class="m-signature-pad--body">
+                  <canvas></canvas>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-6 col-sm-6 col-xs-12 no-r-p">
+            <label for="signer_name">Name of Signer</label>
+            <input class="form-control form-required-input" type="text" name="signer_name" id="signer_name" placeholder="Name"
+               value="[[!+fi.signer_name]]">
+            <div class="warning-dialog" id="warning_signer_name" style="display:none;"></div>
+         </div>
+         <div class="col-md-6 col-sm-6 col-xs-12 no-r-p">
+            <label for="signer_email">Email</label>
+            <input class="form-control form-required-input" type="email" name="signer_email" id="signer_email" placeholder="Email"
+               value="[[!+fi.signer_email]]">
+            <div class="warning-dialog" id="warning_signer_email" style="display:none;"></div>
+         </div>
+      </div>
+   </step5>
+</form>
+<script src="map.js"></script>
+
+</html>
