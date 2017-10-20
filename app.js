@@ -1,22 +1,19 @@
 #!/usr/bin/env node
-
 'use strict';
+
 const Prompt = require('./prompt.js');
 const Excel = require('./excel.js');
 const Map = require('./map.js');
 const util = require('util');
 
-const Params = process.argv.slice(2);
+// const params = process.argv.slice(2);
 
-// const Elements = Map.findHtmlElements(Params);
+// const Elements = Map.findHtmlElements(params);
 
-function bootstrap() {
+function bootstrap(params) {
    // The user is first prompted for additional info.
    Prompt.chain().then(options => {
 
-         console.log('options');
-         console.log(options);
-         console.log('--------------------------------------------');
          Map.loadHtml(options[0]);
          // findHtmlElements() takes our html queries
          // and returns an array with the selected elements
@@ -29,7 +26,7 @@ function bootstrap() {
 
          Excel.populate(
             Map.mapHtmlElementData(
-               Map.findHtmlElements(Params), options
+               Map.findHtmlElements(params), options
             ),
             options[3]
          ).then(() => {

@@ -1,7 +1,6 @@
 'use strict';
 const cheerio = require('cheerio');
 const fs = require('fs');
-const html = './map.html';
 
 let $, HTMLdoc;
 

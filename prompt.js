@@ -43,7 +43,7 @@ function chain() {
          })
          .then(data => {
             cache.push(data);
-            return prompt('Include element text-body?', 'bool');
+            return prompt('Include element inner-text?', 'bool');
          })
          .then(data => {
             cache.push(data);
