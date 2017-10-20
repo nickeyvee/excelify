@@ -10,7 +10,7 @@ You can specify specific html elements like so :
 ![alt text](assets/screenshot.png)
 
 ## How to use
----
+
 1) Clone this repository and run npm install
 
 2) Open the command line or shell in the same directory as the html document you want to parse or CD into it.

@@ -18,7 +18,6 @@
          <div class="row">
             <h3>Business Contact Information</h3>
             <hr/>
-
             <div class="row">
                <div class="col-md-12">
                   <h5>Primary Contact</h5>
@@ -49,25 +48,6 @@
                </div>
             </div>
 
-            <div class="row">
-               <div class="col-md-12">
-                  <h5>Secondary Contact</h5>
-               </div>
-               <div class="col-md-6 col-sm-6 col-xs-12 no-r-p">
-                  <input class="form-control" type="text" name="secondary_contact_fname" placeholder="First Name">
-               </div>
-               <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input class="form-control" type="text" name="secondary_contact_lname" placeholder="Last Name">
-               </div>
-               <div class="col-md-6 col-sm-6 col-xs-12 no-r-p">
-                  <input class="form-control" type="email" name="secondary_contact_email" placeholder="Email" required>
-               </div>
-               <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input class="form-control" type="text" name="secondary_contact_phone" placeholder="Phone" id="secondary_contact_phone" maxlength="16"
-                     onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode === 8'>
-                  <div class="warning-dialog" id="warning_secondary_contact_phone" style="display:none;"></div>
-               </div>
-            </div>
             <div class="row">
                <div class="col-md-4">
                   <label for="business_email">Business Email</label>
@@ -122,82 +102,6 @@
                <div class="warning-dialog" id="warning_business_address2" style="display:none;"></div>
             </div>
          </div>
-         <div class="row" id="business-location-addr">
-            <div class="col-md-4">
-               <input name="business_zip" id="business_zip" type="text" value="" class="form-control form-required-input" placeholder="Zip Code">
-               <div class="warning-dialog" id="warning_business_zip" style="display:none;"></div>
-               <div class="text-error"></div>
-            </div>
-            <div class="col-md-4">
-               <input name="business_city" id="business_city" type="text" value="" class="form-control form-required-input" placeholder="City">
-               <div class="warning-dialog" id="warning_business_city" style="display:none;"></div>
-            </div>
-            <div class="col-md-4">
-               <select name="business_state" class="form-control form-required-input" placeholder="State" id="business_state"></select>
-               <i class="fa fa-caret-down selectDropdown" aria-hidden="true"></i>
-               <div class="warning-dialog" id="warning_business_state" style="display:none;"></div>
-            </div>
-         </div>
-
-         <div class="col-md-12">
-            <h4>Remittance Address</h4>
-            <span>Where do we mail the check to? If the same address, select same address below.</span>
-            <ul class="unstyled" id="remittance_address_status">
-               <li>
-                  <input id="same_address" type="radio" name="remittance_address">
-                  <label for="Same Address">Same Address</label>
-               </li>
-               <li>
-                  <input id="different_address" type="radio" name="remittance_address">
-                  <label for="different_address">Different Address</label>
-               </li>
-            </ul>
-            <div class="warning-dialog" id="warning_remittance_address_status" style="display:none;">Please choose an option</div>
-         </div>
-         <div class="form-group hidden">
-            <div id="different_address_truthy_input" name="different_address">
-               <div class="col-md-12">
-                  <div class="row">
-                     <input name="remittance_company_name" id="remittance_company_name" type="text" value="" class="form-control remittance_address_required"
-                        placeholder="Full Company Name" required>
-                  </div>
-                  <div class="warning-dialog" id="warning_remittance_company_name" style="display:none;"></div>
-               </div>
-               <div class="row">
-                  <div class="col-md-4">
-                     <input name="remittance_address" id="remittance_address" type="text" value="" class="form-control remittance_address_required"
-                        placeholder="Street Address">
-                     <div class="warning-dialog" id="warning_remittance_address" style="display:none;"></div>
-                  </div>
-                  <div class="col-md-4">
-                     <input name="remittance_address2" id="remittance_address2" type="text" value="" class="form-control" placeholder="Suite, Unit, Floor, etc...">
-                  </div>
-                  <div class="col-md-4">
-                     <input name="remittance_city" id="remittance_city" type="text" value="" class="form-control remittance_address_required"
-                        placeholder="City">
-                     <div class="warning-dialog" id="warning_remittance_city" style="display:none;"></div>
-                  </div>
-               </div>
-
-               <div class="row" id="remittance-location-addr">
-                  <div class="col-md-4">
-                     <input name="remittance_zip" id="remittance_zip" type="text" value="" class="form-control remittance_address_required" placeholder="Zip Code">
-                     <div class="warning-dialog" id="warning_remittance_zip" style="display:none;"></div>
-                  </div>
-                  <div class="col-md-4">
-                     <input name="remittance_state" class="form-control remittance_address_required" type="text" value="" placeholder="State / Province / Region"
-                        id="remittance_state">
-                     <div class="warning-dialog" id="warning_remittance_state" style="display:none;"></div>
-                  </div>
-                  <div class="col-md-4">
-                     <select name="remittance_country" class="form-control remittance_address_required" placeholder="Country" id="remittance_country"></select>
-                     <i class="fa fa-caret-down selectDropdown" aria-hidden="true"></i>
-                     <div id="warning_remittance_country" style="display:none;"></div>
-                  </div>
-               </div>
-            </div>
-         </div>
-
          <div class="row">
             <div class="col-md-2 col-md-offset-10">
                <a href="#business_info" class="btn btn-footer-custom nextBtn pull-right" id="next_button_step1" type="button">Next</a>
@@ -209,57 +113,6 @@
       <section id="service_info">
          <h3>Service Information</h3>
          <hr/>
-
-         <div class="row">
-            <div class="col-md-12">
-               <h5>Service Contact</h5>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-12 no-r-p">
-               <input class="form-control form-required-input" type="text" name="service_contact_fname" id="service_contact_fname" placeholder="First Name">
-               <div class="warning-dialog" id="warning_service_contact_fname" style="display:none;"></div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-               <input class="form-control form-required-input" type="text" name="service_contact_lname" id="service_contact_lname" placeholder="Last Name">
-               <div class="warning-dialog" id="warning_service_contact_lname" style="display:none;"></div>
-            </div>
-         </div>
-
-         <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-12 no-r-p">
-               <input class="form-control form-required-input" type="email" name="service_contact_email" id="service_contact_email" placeholder="Email"
-                  required>
-               <div class="warning-dialog" id="warning_service_contact_email" style="display:none;"></div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-               <input class="form-control form-required-input" type="text" name="service_contact_phone" id="service_contact_phone" placeholder="Phone"
-                  id="service_contact_phone" maxlength="16" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode === 8'>
-               <div class="warning-dialog" id="warning_service_contact_phone" style="display:none;"></div>
-            </div>
-         </div>
-
-         <div class="row" style="margin-top:10px">
-            <div class="col-md-5 col-sm-6 col-xs-12 no-r-p">
-               <h5>Business Operation</h5>
-               <input class="form-control" type="text" name="week" id="days_a_week" placeholder="Days A Week">
-               <div class="warning-dialog" id="warning_days_a_week" style="display:none;"></div>
-            </div>
-            <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12">
-               <h5>Operation Hours</h5>
-               <div class="row">
-                  <div class="col-md-5 no-r-p col-sm-5 col-xs-5">
-                     <input class="form-control" type="time" id="operating_time_am" name="open" placeholder="A.M">
-                     <div class="warning-dialog" id="warning_operating_time_am" style="display:none;"></div>
-                  </div>
-                  <div class="col-md-2 no-r-p col-sm-2 col-xs-2">
-                     <h5>To</h5>
-                  </div>
-                  <div class="col-md-5 no-r-p col-sm-5 col-xs-5">
-                     <input class="form-control" type="time" id="operating_time_pm" name="close" placeholder="P.M">
-                     <div class="warning-dialog" id="warning_operating_time_pm" style="display:none;"></div>
-                  </div>
-               </div>
-            </div>
-         </div>
          <label style="margin-top:5px">Do you offer emergency after hours service?</label>
          <br/>
          <ul class="unstyled" id="emergency_after_hours_service_question">
@@ -275,20 +128,4 @@
          <div class="warning-dialog" id="warning_emergency_after_hours_service_question" style="display:none;">Please choose an option</div>
       </section>
    </step2>
-   <step3>
-      <section id="service_continue">
-         <h3>Services Offered:
-            <em>continued</em>
-         </h3>
-         <hr/>
-         <div class="row">
-            <div class="col-md-2 col-md-offset-8">
-               <button class="btn btn-footer-custom nextBtn pull-right" type="button">Previous</button>
-            </div>
-            <div class="col-md-2 ">
-               <a href="#service_continue" class="btn btn-footer-custom nextBtn pull-right" id="next_button_step3" type="button">Next</a>
-            </div>
-         </div>
-      </section>
-   </step3>
 </form>

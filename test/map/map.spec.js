@@ -69,7 +69,7 @@ describe('mapHtmlElementData()', function () {
 
    it('should return optional html elements if specified', function () {
       // console.log("What is this");
-      console.log(Map.mapHtmlElementData(elements, ['test/stub.html', true, false])[0]);
+      // console.log(Map.mapHtmlElementData(elements, ['test/stub.html', true, false])[0]);
       // console.log('----------------------------------------------------')
 
       expect( Map.mapHtmlElementData(elements, ['test/stub.html', true, false])[0] ).to.have.lengthOf(5);
