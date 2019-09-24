@@ -1,9 +1,6 @@
 # Excelify
 
-## Excelify is a command line tool for automatically mapping html element attributes to an excel spreadsheet.
-
-While working I was faced with doing this task by hand, so I
-decided to make this tool.
+## Excelify is a command line tool for targeting and exporting html element attributes to an excel spreadsheet.
 
 You can specify specific html elements like so :
 ```
